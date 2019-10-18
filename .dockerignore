@@ -1,0 +1,9 @@
+.env
+.git
+.gitignore
+Dockerfile
+node_modules/*
+*/node_modules/*
+
+# This folders are Documentation about the apis of the project and is not needed to be inside the container
+docs
