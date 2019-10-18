@@ -7,12 +7,13 @@ WORKDIR /var/www/$SERVICE_NAME/
 COPY package-lock.json /var/www/$SERVICE_NAME/
 COPY package.json /var/www/$SERVICE_NAME/
 
+RUN npm i -g nodemon
 RUN npm ci
 
 COPY . /var/www/$SERVICE_NAME
 
 RUN ls
 
-EXPOSE 80
+EXPOSE 80 9229
 
-CMD npm start
+CMD nodemon server
