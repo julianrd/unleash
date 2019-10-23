@@ -1,0 +1,36 @@
+# Circle CI 2.0
+version: 2
+jobs:
+  build:
+    docker:
+      - image: 'circleci/node:9.11.2'
+    environment:
+      SERVICE_NAME: 'zoopix-unleash'
+      GIT_USER_EMAIL: ci@kelsus.com
+      GIT_USER_NAME: CircleCI
+    steps:
+      - setup_remote_docker
+      - run: set -x
+      - checkout
+      - run:  
+          name: Configure gi.
+          command: git config --global user.email $GIT_USER_EMAIL && git config --global user.name $GIT_USER_NAME && git branch -u origin/$CIRCLE_BRANCH
+      - run:
+          name: Allow access to private npm.
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run:
+          name: Install Deploy tool
+          command: npm i @kelsus/kelsus-deploy@1.0.31 --global-style --save false
+      - run:
+          name: Check git
+          command: npx kelsus-deploy check-git
+      - run:
+          name: Bump version
+          command: npx kelsus-deploy bump-version   
+      - run:
+          name: Create fake network
+          command: docker network create $SERVICE_NAME-network
+      - run: touch .env
+      - deploy:
+          name: Deploy if branch is develop or staging
+          command: npx kelsus-deploy deploy

@@ -1,13 +1,7 @@
 {
-  "name": "unleash-server",
+  "name": "zoopix-unleash",
   "description": "Unleash is an enterprise ready feature toggles service. It provides different strategies for handling feature toggles.",
-  "version": "3.2.16",
-  "keywords": [
-    "unleash",
-    "feature toggle",
-    "feature",
-    "toggle"
-  ],
+  "version": "0.0.1",
   "files": [
     "lib",
     "docs",
@@ -16,15 +10,13 @@
     "server.js",
     "migrator.js"
   ],
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com:unleash/unleash.git"
-  },
-  "bugs": {
-    "url": "https://github.com/unleash/unleash/issues"
-  },
   "engines": {
     "node": ">=8"
+  },
+  "kelsus": {
+    "aws_region": "us-west-2",
+    "aws_profile_name": "zoopix",
+    "cluster_prefix": "zoopix"
   },
   "license": "Apache-2.0",
   "main": "./lib/server-impl.js",
@@ -73,12 +65,14 @@
     "express": "^4.17.1",
     "gravatar": "^1.8.0",
     "joi": "^14.3.1",
+    "jose": "^1.10.1",
     "js-yaml": "^3.12.2",
     "knex": "^0.19.4",
     "log4js": "^5.1.0",
     "mime": "^2.4.2",
     "moment": "^2.24.0",
     "multer": "^1.4.1",
+    "node-fetch": "^2.6.0",
     "parse-database-url": "^0.3.0",
     "pg": "^7.12.1",
     "pkginfo": "^0.4.1",

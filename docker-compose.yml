@@ -2,19 +2,24 @@
 version: "3.3"
 services:
   web:
-    build: .
+    build: 
+      context: .
+      # dockerfile: Dockerfile.prod
     volumes:
       - ./lib:/var/www/zoopix-unleash/lib
+      - ./dist:/var/www/zoopix-unleash/dist
     ports:
-      - "4242:80"
+      - "4242:4242"
       - "9229:9229"
     environment:
-      PORT: 80
-      BASE_URI_PATH: /unleash
+      PORT: 4242
+      # BASE_URI_PATH: /unleash
       DATABASE_URL: postgres://postgres:unleash@db/postgres
+      COGNITO_REGION: us-west-2
+      COGNITO_USER_POOL_ID: us-west-2_DEWTYe8BS
+      CLIENT_API_SECRET: a_super_secret
     depends_on:
       - db
-    command: nodemon -w lib --inspect=0.0.0.0 server.js
   db:
     expose:
       - "5432"
